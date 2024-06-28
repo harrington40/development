@@ -1,0 +1,229 @@
+/* Flex container setup for the page to be flexible and cover the full height */
+.flexContainer {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  align-items: center; /* Center the content horizontally */
+  padding: 20px; /* Add padding for zoom effect */
+}
+
+/* Central container for content alignment and justification */
+.centralFlexContainer {
+  width: 100%;
+  max-width: 1200px; /* Set a max-width for better alignment */
+  margin: 0 auto; /* Center the content */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center the content vertically */
+  align-items: center; /* Center the content horizontally */
+}
+
+/* Header setup to arrange its elements in a column */
+.header {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* Styling for the small rows in the header */
+.rowSmall {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Align items evenly */
+  background-color: lightgray;
+  padding: 10px 20px;
+  text-align: center;
+}
+
+/* Styling for the large row in the header */
+.rowLarge {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Align items evenly */
+  background-color: gray;
+  padding: 20px;
+  text-align: center;
+}
+
+/* Container for flag and dropdown in the large row */
+.flagContainer {
+  display: flex;
+  align-items: center;
+}
+
+/* Styling for the flag icon */
+.flag {
+  height: 30px;
+  margin-right: 10px; /* Add a small distance from the original position */
+}
+
+/* Container for dropdown to position it correctly */
+.dropdownContainer {
+  position: relative;
+  margin-right: 10px; /* Add a small distance from the original position */
+}
+
+/* Styling for the dropdown button */
+.dropdown {
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+/* Styling for the dropdown menu */
+.dropdownMenu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 150px;
+  z-index: 1000;
+}
+
+/* Styling for dropdown menu items */
+.dropdownMenu li {
+  padding: 10px;
+  cursor: pointer;
+}
+
+/* Hover effect for dropdown menu items */
+.dropdownMenu li:hover {
+  background-color: #f0f0f0;
+}
+
+/* Styling for the search field */
+.searchField {
+  width: 200px;
+  padding: 5px;
+  border: none;
+  border-radius: 4px;
+}
+
+/* Main content area styling */
+.main {
+  flex: 1;
+  display: flex;
+  justify-content: center; /* Center the content horizontally */
+  width: 100%;
+}
+
+/* Container for the columns to center align */
+.column {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+/* Left column styling */
+.leftColumn, .rightColumn {
+  flex: 0.5; /* Shrink the left and right columns */
+  background-color: lightblue;
+  padding: 100px;
+  margin: 100px; /* Add margin for spacing */
+}
+
+/* Middle column styling */
+.middleColumn {
+  flex: 3; /* Expand the middle column */
+  display: flex;
+  flex-direction: column;
+  background-color: lightcoral;
+  padding: 10px;
+  margin: 10px; /* Add margin for spacing */
+}
+
+/* Row within the middle column */
+.row {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+/* Carousel styling */
+.carousel {
+  width: 100%; /* Controls the width of the carousel */
+  background-color: lightgreen; /* Background color of the carousel */
+  padding: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.carouselItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 400px; /* Controls the height of the carousel items */
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.carouselImage {
+  width: auto; /* Adjust to maintain aspect ratio */
+  max-width: 100%; /* Ensure image doesn't overflow */
+  height: 100%; /* Make image fill the height */
+  object-fit: contain; /* Ensure image covers the carousel area */
+  display: block;
+  margin: 0 auto; /* Center the image */
+}
+
+/* Large column within the second row */
+.largeCol {
+  flex: 2;
+  background-color: lightyellow;
+  padding: 10px;
+  margin-right: 10px;
+}
+
+/* Small column within the second row */
+.smallCol {
+  flex: 1;
+  background-color: lightgray;
+  padding: 10px;
+}
+
+/* Equal columns within the third and fourth rows */
+.equalCol {
+  flex: 1;
+  background-color: lightpink;
+  padding: 10px;
+  margin-right: 10px;
+}
+
+.equalCol:last-child {
+  margin-right: 0;
+}
+
+/* Footer styling */
+.footer {
+  background-color: lightgray;
+  padding: 10px;
+  text-align: center;
+  width: 100%;
+}
+
+/* Styling for the seal of Liberia */
+.seal {
+  height: 50px;
+}
+
+/* Styling for menu items in the last small row */
+.menuItem {
+  margin-right: 20px; /* Add space between menu items */
+}
+
+.spacer {
+  flex-grow: 1; /* Add flexible space between menu sections */
+}
+
+.canvas {
+  margin-top: 20px;
+  border: 1px solid #ccc;
+}
