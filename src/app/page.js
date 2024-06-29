@@ -1,29 +1,18 @@
-// src/app/page.js
 "use client";
 
 import Head from 'next/head';
-import styles from '../../styles/Pages.module.css';
-import { useState, useEffect, useRef } from 'react';
-import { FaCaretDown } from 'react-icons/fa';
+import React, { useState, useEffect } from 'react';
+import { MDBCol } from 'mdb-react-ui-kit';
 import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-import { SideBySideMagnifier } from 'react-image-magnifiers';
-import { Card, CardContent, List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
-import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
+import styles from '../../styles/Pages.module.css';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 export default function Pages() {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [counties, setCounties] = useState([]);
-  const [menuItems, setMenuItems] = useState([]);
-  const [carouselItems, setCarouselItems] = useState([
-    { image: 'http://localhost:3002/image/pic1.jpeg', title: 'Picture 1' },
-    { image: 'http://localhost:3002/image/pic2.jpeg', title: 'Picture 2' },
-    { image: 'http://localhost:3002/image/pic3.jpeg', title: 'Picture 3' }
-  ]);
-
-  const canvasRef = useRef(null);
-  const [selectedImage, setSelectedImage] = useState(null);
 
   useEffect(() => {
     async function fetchCounties() {
@@ -38,69 +27,81 @@ export default function Pages() {
     fetchCounties();
   }, []);
 
-  useEffect(() => {
-    async function fetchMenuItems() {
-      const res = await fetch('http://localhost:3002/api/menu');
-      if (res.ok) {
-        const data = await res.json();
-        setMenuItems(data.menuItems);
-      } else {
-        console.error('Failed to fetch menu items');
-      }
-    }
-    fetchMenuItems();
-  }, []);
-
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
-  };
-
   const settings = {
     dots: true,
     infinite: true,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 2000,
   };
 
-  const handleImageLoad = (event) => {
-    const image = new Image();
-    image.src = event.target.src;
-    image.onload = () => {
-      const canvas = canvasRef.current;
-      const ctx = canvas.getContext('2d');
-      canvas.width = image.width;
-      canvas.height = image.height;
-      ctx.drawImage(image, 0, 0);
+  const carouselItems = [
+    { image: 'http://localhost:3002/image/pic1.jpeg', title: 'Picture 1' },
+    { image: 'http://localhost:3002/image/pic3.jpeg', title: 'Picture 3' }
+  ];
 
-      // Manipulate the image (example: invert colors)
-      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-      const data = imageData.data;
-
-      for (let i = 0; i < data.length; i += 4) {
-        data[i] = 255 - data[i];     // Red
-        data[i + 1] = 255 - data[i + 1]; // Green
-        data[i + 2] = 255 - data[i + 2]; // Blue
-      }
-
-      ctx.putImageData(imageData, 0, 0);
-    };
-  };
-
-  const handleCarouselItemClick = (item) => {
-    setSelectedImage(item.image);
-  };
-
-  const cardInfo = [
-    "Develop Site Data",
-    "Integrate ESLint",
-    "Integrate Storybook",
-    "Research and Analyze The Design"
+  const cardData = [
+    {
+      header: "Floor Proceedings",
+      sections: [
+        {
+          header: "Friday, Jun 28, 2024",
+          items: [
+            { text: "12:00 p.m.: Convene for a pro forma session." },
+            { text: "Floor Webcast", url: "#" },
+            { text: "Senate Calendar (latest issue)", url: "#" },
+            { text: "Executive Calendar (latest issue, PDF)", url: "#" },
+            { text: "Tentative Floor Schedule", url: "#" }
+          ]
+        }
+      ]
+    },
+    {
+      header: "Previous Meeting",
+      sections: [
+        {
+          header: "Tuesday, Jun 25, 2024",
+          items: [
+            { text: "The Senate convened at 11:30 a.m. for a pro forma session." },
+            { text: "Floor Activity", url: "#" },
+            { text: "Daily Digest (latest issue)", url: "#" },
+            { text: "Congressional Record (latest issue, PDF)", url: "#" },
+            { text: "Senate Floor Proceedings, 2014 to Present", url: "#" }
+          ]
+        }
+      ]
+    },
+    {
+      header: "Scheduled Hearings",
+      sections: [
+        {
+          header: "Today, Jun 26, 2024",
+          items: [
+            { text: "No committee hearings scheduled." }
+          ]
+        },
+        {
+          header: "Tuesday, Jul 09, 2024",
+          items: [
+            { text: "Environment and Public Works 10:00 AM — SD-406", url: "#" }
+          ]
+        },
+        {
+          header: "Wednesday, Jul 10, 2024",
+          items: [
+            { text: "Environment and Public Works 10:00 AM — SD-406", url: "#" },
+            { text: "More", url: "#" }
+          ]
+        }
+      ]
+    }
   ];
 
   return (
-    <div className={styles.container}>
-      <div className={styles.centralContainer}>
+    <div className={styles.flexContainer}>
+      <div className={styles.centralFlexContainer}>
         <Head>
           <title>Landing Page</title>
           <meta name="description" content="Generated by create next app" />
@@ -115,16 +116,9 @@ export default function Pages() {
               className={styles.flag}
             />
             <div className={styles.dropdownContainer}>
-              <div className={styles.dropdown} onClick={toggleDropdown}>
-                Menu <FaCaretDown />
+              <div className={styles.dropdown}>
+                Menu
               </div>
-              {isDropdownOpen && (
-                <ul className={styles.dropdownMenu}>
-                  {counties.map((county, index) => (
-                    <li key={index}>{county}</li>
-                  ))}
-                </ul>
-              )}
             </div>
           </div>
           <div className={styles.rowLarge}>
@@ -139,101 +133,46 @@ export default function Pages() {
               className={styles.searchField}
             />
           </div>
-          <div className={styles.rowSmall}>
-            {menuItems.slice(0, 3).map((item, index) => (
-              <span key={index} className={styles.menuItem}>{item}</span>
-            ))}
-            <span className={styles.spacer}></span>
-            {menuItems.slice(3).map((item, index) => (
-              <span key={index} className={styles.menuItem}>{item}</span>
-            ))}
+          <div className={styles.rowThird}>
+            <span>Third Row Content</span>
           </div>
         </header>
 
         <main className={styles.main}>
-          <div className={styles.column}>
-            {/* Left Column */}
-            <div className={styles.leftColumn}>Left Column</div>
-
-            {/* Middle Column */}
-            <div className={styles.middleColumn}>
-              <Slider {...settings} className={styles.carousel}>
-                {carouselItems.map((item, index) => (
-                  <div key={index} className={styles.carouselItem} onClick={() => handleCarouselItemClick(item)}>
-                    <SideBySideMagnifier
-                      imageSrc={item.image}
-                      largeImageSrc={item.image}
-                      alwaysInPlace={true}
-                      overlayOpacity={0.5}
-                      switchSides={false}
-                      zoomPosition="right"
-                      inPlaceMinBreakpoint={400}
-                      fillAvailableSpace={false}
-                      fillAlignTop={false}
-                      fillGapTop={10}
-                      fillGapRight={10}
-                      fillGapBottom={10}
-                      fillGapLeft={10}
-                      className={styles.carouselImage}
-                    />
-                    <h2>{item.title}</h2>
-                  </div>
-                ))}
-              </Slider>
-              {selectedImage && (
-                <div>
-                  <canvas ref={canvasRef} className={styles.canvas}></canvas>
-                  <img src={selectedImage} alt="Selected" onLoad={handleImageLoad} style={{ display: 'none' }} />
+          <div style={{ width: "70%" }}>
+            <Slider {...settings}>
+              {carouselItems.map((item, index) => (
+                <div key={index}>
+                  <img src={item.image} alt={item.title} style={{ width: '100%', height: 'auto' }} />
+                  <h3>{item.title}</h3>
                 </div>
-              )}
-              <div className={styles.row}>
-                <div className={styles.largeCol}>
-                  <Card>
-                    <CardContent>
-                      <List>
-                        {cardInfo.map((info, index) => (
-                          <ListItem key={index}>
-                            <ListItemIcon>
-                              <ArrowRightIcon />
-                            </ListItemIcon>
-                            <ListItemText primary={info} />
-                          </ListItem>
+              ))}
+            </Slider>
+          </div>
+          <div className={styles.cardContainer}>
+            {cardData.map((card, cardIndex) => (
+              <Card key={cardIndex} className={styles.card}>
+                <CardContent>
+                  <Typography variant="h5" component="div" className={styles.cardHeader}>
+                    {card.header}
+                  </Typography>
+                  {card.sections.map((section, sectionIndex) => (
+                    <div key={sectionIndex} className={styles.cardSection}>
+                      <Typography variant="h6" component="div" className={styles.cardSectionHeader}>
+                        {section.header}
+                      </Typography>
+                      <ul>
+                        {section.items.map((item, itemIndex) => (
+                          <li key={itemIndex} style={item.bold ? { fontWeight: 'bold' } : {}}>
+                            {item.url ? <a href={item.url}>{item.text}</a> : item.text}
+                          </li>
                         ))}
-                      </List>
-                    </CardContent>
-                  </Card>
-                </div>
-                <div className={styles.smallCol}>
-                  <Card>
-                    <CardContent>
-                      <List>
-                        {cardInfo.map((info, index) => (
-                          <ListItem key={index}>
-                            <ListItemIcon>
-                              <ArrowRightIcon />
-                            </ListItemIcon>
-                            <ListItemText primary={info} />
-                          </ListItem>
-                        ))}
-                      </List>
-                    </CardContent>
-                  </Card>
-                </div>
-              </div>
-              <div className={styles.row}>
-                <div className={styles.equalCol}>Column 1</div>
-                <div className={styles.equalCol}>Column 2</div>
-                <div className={styles.equalCol}>Column 3</div>
-              </div>
-              <div className={styles.row}>
-                <div className={styles.equalCol}>Column 1</div>
-                <div className={styles.equalCol}>Column 2</div>
-                <div className={styles.equalCol}>Column 3</div>
-              </div>
-            </div>
-
-            {/* Right Column */}
-            <div className={styles.rightColumn}>Right Column</div>
+                      </ul>
+                    </div>
+                  ))}
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </main>
 
