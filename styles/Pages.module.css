@@ -16,10 +16,7 @@
   width: 100%;
   background-color: #f8f9fa;
   padding: 10px;
-  margin-bottom: 40px;
-  margin-left: 90px;
-  margin-right: 100px;
-  padding-left: 20px;
+  margin-bottom: 20px;
 }
 
 .rowSmall, .rowLarge, .rowThird {
@@ -49,6 +46,7 @@
 
 .dropdownContainer {
   position: relative;
+  margin-left: 20px; /* Gap between flag and dropdown */
 }
 
 .dropdown {
@@ -60,10 +58,21 @@
   top: 100%;
   left: 0;
   background-color: white;
-  margin-right: 10px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   padding: 10px;
   z-index: 1000;
+  max-height: 200px; /* Adjust height for scrolling */
+  overflow-y: auto;
+}
+
+.dropdownMenu li {
+  list-style: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.dropdownMenu li:hover {
+  background-color: #f0f0f0;
 }
 
 .seal {
@@ -72,10 +81,9 @@
 
 .searchField {
   flex-grow: 1;
-  margin-left: 800px;
-  margin-right: 900px;
+  margin-left: 20px;
   padding: 10px;
-  font-size: 12px;
+  font-size: 16px;
 }
 
 .main {
@@ -84,27 +92,25 @@
   align-items: center;         /* Center child elements horizontally */
   justify-content: center;     /* Center child elements vertically */
   width: 100%;
-  flex: 1;                     /* Take available space */
+  flex: 2;                     /* Take available space */
 }
 
 .cardContainer {
   display: flex;
-  flex-wrap: none;
-  justify-content: left;     /* Center cards horizontally */
-  align-items: left;         /* Center cards vertically */
-  gap: 40px;                   /* Space between cards */
-  margin-top: 80px;
+  flex-wrap: None;
+  justify-content: center;     /* Center cards horizontally */
+  align-items: center;         /* Center cards vertically */
+  gap: 20px;                   /* Space between cards */
+  margin-top: 20px;
   width: 80%;
 }
 
 .card {
-  width: 300px;                /* Fixed width */
-  height: 400px;               /* Fixed height */
+  width: 350px;                /* Fixed width */
   border: 2px solid green;     /* Green border */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow */
   transition: box-shadow 0.3s ease-in-out;
   padding: 10px;
-  
 }
 
 .card:hover {
@@ -112,10 +118,28 @@
 }
 
 .card-header {
-  font-size: 18px;
-  font-weight: bold;
+  width: 100%;
+  height: 200px; /* Fixed height for the image header */
+  background-size: cover;
+  background-position: center;
   border-bottom: 1px solid #ddd;
-  margin-bottom: 10px;
+}
+
+.card-body {
+  padding: 10px;
+  font-size: 16px;
+}
+
+.card-footer {
+  padding: 10px;
+  border-top: 1px solid #ddd;
+  text-align: center;
+}
+
+.card-header img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .card-section {
@@ -153,9 +177,69 @@
   text-decoration: underline;
 }
 
+.imageCardContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.imageCard {
+  width: 350px;    /* Set fixed width for consistency */
+  height: 500px;   /* Set fixed height for consistency */
+  text-align: center;
+  border: 2px solid red; /* Red border */
+  padding: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow */
+  transition: box-shadow 0.3s ease-in-out;
+  border-radius: 5px;
+}
+
+.imageCard:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Shadow on hover */
+}
+
+.imageCard img {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+
+.imageCard h3 {
+  margin-top: 10px;
+  font-size: 16px;
+}
+
+.imageCard ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.imageCard li {
+  display: flex;
+  align-items: center;
+  padding: 5px 0;
+}
+
+.imageCard li:before {
+  content: "\203A"; /* Right arrow */
+  margin-right: 5px;
+  color: #1e88e5; /* Arrow color */
+}
+
+.imageCard a {
+  text-decoration: none;
+  color: #1e88e5;
+}
+
+.imageCard a:hover {
+  text-decoration: underline;
+}
+
 .footer {
   width: 100%;
   text-align: center;
-  padding: 80px;
+  padding: 20px;
   background-color: #f8f9fa;
 }

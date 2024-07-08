@@ -1,0 +1,10 @@
+/* global.css */
+body {
+    margin-top: 20px;
+}
+
+.bg-footer {
+    background-color: #3b4757 !important;
+}
+
+/* Other global styles here */

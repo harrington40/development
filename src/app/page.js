@@ -7,12 +7,16 @@ import Slider from 'react-slick';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
+import { FaCaretDown } from 'react-icons/fa';
 import styles from '../../styles/Pages.module.css';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import "../../styles/global.css"
+import Footer from './Footer'; // Ensure the correct path
 
 export default function Pages() {
   const [counties, setCounties] = useState([]);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   useEffect(() => {
     async function fetchCounties() {
@@ -39,6 +43,7 @@ export default function Pages() {
 
   const carouselItems = [
     { image: 'http://localhost:3002/image/pic1.jpeg', title: 'Picture 1' },
+  
     { image: 'http://localhost:3002/image/pic3.jpeg', title: 'Picture 3' }
   ];
 
@@ -99,6 +104,68 @@ export default function Pages() {
     }
   ];
 
+  const imageCardData = [
+    {
+      image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Robert_Smalls_-_Brady-Handy.jpg/440px-Robert_Smalls_-_Brady-Handy.jpg',
+      title: 'Research Tools',
+      items: [
+        { text: 'Research Tools', url: '#' },
+        { text: 'Commonly Searched for Legislation', url: '#' }
+      ]
+    },
+    {
+      image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Senate_in_2010.jpg/440px-Senate_in_2010.jpg',
+      title: 'Recent Senate Roll Call Votes',
+      items: [
+        { text: 'Jun 20 | 202 (43-27) | Agreed to | PN1461', url: '#' },
+        { text: 'Jun 20 | 201 (45-26) | Confirmed | PN1343', url: '#' },
+        { text: 'Jun 18 | 200 (88-2) | Agreed to | S. 870', url: '#' },
+        { text: 'Detailed Session List', url: '#' }
+      ]
+    },
+    {
+      image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Rotunda_Painting.jpg/440px-Rotunda_Painting.jpg',
+      title: 'Public Disclosure',
+      items: [
+        { text: 'Financial Disclosure', url: '#' },
+        { text: 'Gift Rule/Travel', url: '#' },
+        { text: 'Lobby Disclosure Act', url: '#' }
+      ]
+    }
+  ];
+
+  const newImageCardData = [
+    {
+      headerImage: 'https://upload.wikimedia.org/wikipedia/commons/5/5a/Sunflower.jpg',
+      bodyText: 'Features',
+      footerItems: [
+        { text: 'Women of the Senate', url: '#' },
+        { text: 'Senate Stories Blog', url: '#' },
+      ],
+    },
+    {
+      headerImage: 'https://upload.wikimedia.org/wikipedia/commons/4/47/Cherry_blossoms_in_Paris.jpg',
+      bodyText: 'Visiting',
+      footerItems: [
+        { text: 'Plan Your Visit', url: '#' },
+        { text: 'Capitol Visitors\' Center', url: '#' },
+        { text: 'Capitol Camera', url: '#' },
+      ],
+    },
+    {
+      headerImage: 'https://upload.wikimedia.org/wikipedia/commons/4/45/A_small_cup_of_coffee.JPG',
+      bodyText: 'Jobs',
+      footerItems: [
+        { text: 'Employment', url: '#' },
+        { text: 'Procurement', url: '#' },
+      ],
+    },
+  ];
+
+  const toggleDropdown = () => {
+    setDropdownOpen(!dropdownOpen);
+  };
+
   return (
     <div className={styles.flexContainer}>
       <div className={styles.centralFlexContainer}>
@@ -116,9 +183,16 @@ export default function Pages() {
               className={styles.flag}
             />
             <div className={styles.dropdownContainer}>
-              <div className={styles.dropdown}>
-                Menu
+              <div className={styles.dropdown} onClick={toggleDropdown}>
+                Find Your County <FaCaretDown />
               </div>
+              {dropdownOpen && (
+                <ul className={styles.dropdownMenu}>
+                  {counties.map((county, index) => (
+                    <li key={index}>{county}</li>
+                  ))}
+                </ul>
+              )}
             </div>
           </div>
           <div className={styles.rowLarge}>
@@ -139,11 +213,11 @@ export default function Pages() {
         </header>
 
         <main className={styles.main}>
-          <div style={{ width: "70%" }}>
+          <div style={{ width: "60%" }}>
             <Slider {...settings}>
               {carouselItems.map((item, index) => (
                 <div key={index}>
-                  <img src={item.image} alt={item.title} style={{ width: '100%', height: 'auto' }} />
+                  <img src={item.image} alt={item.title} style={{ width: '90%', height: '80%' }} />
                   <h3>{item.title}</h3>
                 </div>
               ))}
@@ -174,11 +248,49 @@ export default function Pages() {
               </Card>
             ))}
           </div>
+          <div className={styles.imageCardContainer}>
+            {imageCardData.map((imageCard, index) => (
+              <div key={index} className={styles.imageCard}>
+                <img src={imageCard.image} alt={imageCard.title} />
+                <h3>{imageCard.title}</h3>
+                <ul>
+                  {imageCard.items.map((item, itemIndex) => (
+                    <li key={itemIndex}>
+                      <a href={item.url}>{item.text}</a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+          <div className={styles.cardContainer}>
+            {newImageCardData.map((card, index) => (
+              <Card key={index} className={styles.card}>
+                <div
+                  className={styles.cardHeader}
+                  style={{ backgroundImage: `url(${card.headerImage})` }}
+                ></div>
+                <div className={styles.cardBody}>
+                  <Typography variant="body1">
+                    {card.bodyText}
+                  </Typography>
+                </div>
+                <div className={styles.cardFooter}>
+                  <ul>
+                    {card.footerItems.map((item, itemIndex) => (
+                      <li key={itemIndex}>
+                        <a href={item.url}>{item.text}</a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </Card>
+            ))}
+          </div>
         </main>
-
-        <footer className={styles.footer}>
-          <p>&copy; 2024 Your Company</p>
-        </footer>
+        <div>kkkkkkkkkkkkkkkkkkkkk</div>
+        <div>kkkkkkkkkkkkkkkkkkkkk</div>
+        <Footer /> {/* Add Footer here */}
       </div>
     </div>
   );
